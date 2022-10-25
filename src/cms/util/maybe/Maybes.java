@@ -165,7 +165,8 @@ class Maybes {
         
         @Override
         public boolean equals(Object o) {
-            if (o instanceof Some<?> s) {
+            if (o instanceof Some) {
+                Some s = (Some) o;
                 return value.equals(s.value);
             } else {
                 return false;

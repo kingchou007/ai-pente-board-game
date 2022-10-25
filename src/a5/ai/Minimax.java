@@ -284,6 +284,7 @@ public class Minimax<GameState, Move> {
         });
     }
 
+    /** An exception signifying that the search algorithm ran out of time. */
     public static class OutOfTime extends Exception {
     }
 }

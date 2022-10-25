@@ -3,7 +3,7 @@ package a5.logic;
 import java.util.Objects;
 
 /**
- * A position on the board.
+ * An immutable position (row, column) on the board.
  */
 public class Position {
 
@@ -12,19 +12,32 @@ public class Position {
      */
     final private int rowNo, colNo;
 
-    public Position(int rowNo, int colNo) {
-        this.rowNo = rowNo;
-        this.colNo = colNo;
+    
+    /**
+     * Creates: the position ({@code row}, {@code column}).
+     */
+    public Position(int row, int column) {
+        rowNo = row;
+        colNo = column;
     }
 
+    /**
+     * Returns: the row
+     */
     public int row() {
         return rowNo;
     }
 
+    /**
+     * Returns: the column
+     */
     public int col() {
         return colNo;
     }
 
+    /**
+     * Equality is state equality.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {

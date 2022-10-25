@@ -188,7 +188,7 @@ public class Main {
      */
     private static void showUsage() {
         String sb = "usage: a5.Main [--help] [--showinfo] [--timelimit <ms>]" +
-                GameType.options() +
+                " " + GameType.options() +
                 " " + PlayerType.options() +
                 " " + PlayerType.options();
         System.out.println(sb);

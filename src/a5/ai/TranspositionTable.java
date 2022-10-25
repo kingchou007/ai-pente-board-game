@@ -6,8 +6,8 @@ import cms.util.maybe.Maybe;
  * A transposition table for an arbitrary game. It maps a game state
  * to a search depth and a heuristic evaluation of that state to the
  * recorded depth. Unlike a conventional map abstraction, a state is
- * looked up along with the desired depth; successfully finding that
- * state requires finding an entry with at least the desired depth.
+ * associated with a depth, so that clients can look for states whose
+ * entry has at least the desired depth.
  *
  * @param <GameState> A type representing the state of a game.
  */
@@ -19,12 +19,12 @@ public class TranspositionTable<GameState> {
     public interface StateInfo {
 
         /**
-         * The heuristic value of this game state
+         * The heuristic value of this game state.
          */
         int value();
 
         /**
-         * The depth to which the game tree was searched to determine the value
+         * The depth to which the game tree was searched to determine the value.
          */
         int depth();
     }
@@ -36,7 +36,6 @@ public class TranspositionTable<GameState> {
      * @param <GameState>
      */
     static private class Node<GameState> implements StateInfo {
-
         /**
          * The state
          */
@@ -93,11 +92,13 @@ public class TranspositionTable<GameState> {
     }
 
     @SuppressWarnings("unchecked")
+    /** Creates: a new, empty transposition table. */
     TranspositionTable() {
         size = 0;
         // TODO 2
     }
 
+    /** The number of entries in the transposition table. */
     public int size() {
         return size;
     }
@@ -122,7 +123,17 @@ public class TranspositionTable<GameState> {
         // TODO 4
     }
 
+    /**
+     * Effect: Make sure the hash table has at least {@code target} buckets.
+     * Returns true if the hash table actually resized.
+     */
+    private boolean grow(int target) {
+        // TODO 5
+        return false;
+    }
+
     // You may want to write some additional helper methods.
+
 
     /**
      * Estimate clustering. With a good hash function, clustering

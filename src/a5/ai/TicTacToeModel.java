@@ -8,6 +8,9 @@ import a5.util.PlayerRole;
 
 import java.util.List;
 
+/**
+ * A model for TicTacToe and Position satisfying the constraints of GameModel.
+ */
 public class TicTacToeModel implements GameModel<TicTacToe, Position> {
 
     @Override

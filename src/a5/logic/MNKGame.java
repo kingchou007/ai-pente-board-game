@@ -215,8 +215,8 @@ public abstract class MNKGame {
 
     @Override
     public String toString() {
-        final String FIRST_PLAYER_STONE = "●";
-        final String SECOND_PLAYER_STONE = "◯";
+        final String FIRST_PLAYER_STONE = "\u25cf";
+        final String SECOND_PLAYER_STONE = "\u25ef";
         final String NL = System.lineSeparator();
         StringBuilder sb = new StringBuilder();
         sb.append("Current turn: " + currentTurn).append(NL);
@@ -258,6 +258,11 @@ public abstract class MNKGame {
         return sb.toString();
     }
 
+    /** Although MNKGame is a mutable abstraction, equality
+     *  is defined in terms of the state of the object. This
+     *  goes against our usual advice on how to implement equals(),
+     *  but is needed to support use in the transposition table.
+     */
     public boolean equals(Object o) {
         if (getClass() != o.getClass()) {
             return false;

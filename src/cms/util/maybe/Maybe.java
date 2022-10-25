@@ -12,6 +12,9 @@ import java.util.function.Supplier;
  */
 public abstract class Maybe<T> implements Iterable<T> {
 
+    /** Do nothing. */
+    protected Maybe() {}
+
     /** Returns whether a value is contained in this {@code Maybe}.
      *  @return whether a value is contained. */
     public abstract boolean isPresent();
@@ -72,11 +75,6 @@ public abstract class Maybe<T> implements Iterable<T> {
      */
     public abstract <U> Maybe<U> then(Function<T, U> f);
     
-//    /** If a value v is present and f(v) is non-null, returns a Maybe containing f(v).
-//     *  Otherwise, returns an empty Maybe. Equivalent to thenMaybe(v -> Maybe.from(f(v)))
-//     */
-//    <U> Maybe<U> thenNullable(Function<T, U> f);
-
     /** Returns the contained value, if any; otherwise, returns {@code other}.
      *  Note: since orElse is an ordinary method call, its argument is always computed,
      *  unlike a Java {@code else} statement. If the argument is

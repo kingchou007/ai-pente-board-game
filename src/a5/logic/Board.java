@@ -5,17 +5,18 @@ import a5.util.PlayerRole;
 import java.util.Arrays;
 
 /**
- * A mutable representation of an m-by-n board that each cell
+ * A mutable representation of an m-by-n board in which each cell
  * can be occupied by a player or be empty
  */
 public class Board {
-
     /**
      * A byte array representing the state of the board.
      * It represents the state of cells on an m-by-n board
      * with a one-dimensional array of length m*n.
      * So a cell at position (rowNo, colNo) on board is stored at
-     * {@code boardState[p.row() * n + p.col()]}.
+     * {@code boardState[p.row() * n + p.col()]}. Zero elements
+     * represent empty locations; pieces of a player are represented
+     * the PlayerRole.boardValue of that player.
      */
     private final byte[] boardState;
     final private int rowSize;
@@ -38,12 +39,12 @@ public class Board {
     public Board(Board board) {
         this.rowSize = board.rowSize;
         this.colSize = board.colSize;
-        this.boardState = board.boardState.clone();
+        this.boardState = Arrays.copyOf(board.boardState, board.boardState.length);
     }
 
     /**
      * Returns: the board state of a cell.
-     * Returns 0 if it is empty, otherwise the returned value matches
+     * Returns 0 if it is empty; otherwise, the returned value matches
      * the player role's {@code boardValue}.
      * Requires: {@code p} is on board
      * @param p the position of the cell

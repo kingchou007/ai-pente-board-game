@@ -2,6 +2,7 @@ package a5.logic;
 
 import a5.util.GameType;
 
+/** The classic game of Tic-Tac-Toe. */
 public class TicTacToe extends MNKGame {
 
     public TicTacToe() {
