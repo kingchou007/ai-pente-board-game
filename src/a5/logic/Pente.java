@@ -29,6 +29,7 @@ public class Pente extends MNKGame {
     public Pente(Pente game) {
         super(game);
         // TODO 2
+
     }
 
     @Override

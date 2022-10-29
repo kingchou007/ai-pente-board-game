@@ -95,6 +95,7 @@ public class TranspositionTable<GameState> {
     /** Creates: a new, empty transposition table. */
     TranspositionTable() {
         size = 0;
+        Node<GameState>[] buckets = new Node[10];
         // TODO 2
     }
 
@@ -110,7 +111,15 @@ public class TranspositionTable<GameState> {
      */
     public Maybe<StateInfo> getInfo(GameState state) {
         // TODO 3
-        return Maybe.none();
+        int index = state.hashCode() % buckets.length; // not sure
+        for(int i = 0; i < index; i++){
+            if (buckets[i] == null) {
+                return Maybe.none();
+            }else{
+                return Maybe.some(buckets[i]); // return whole node
+            }
+        }
+        return Maybe.none(); // check
     }
 
     /**
