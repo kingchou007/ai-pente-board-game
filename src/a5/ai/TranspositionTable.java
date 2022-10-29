@@ -111,8 +111,7 @@ public class TranspositionTable<GameState> {
      */
     public Maybe<StateInfo> getInfo(GameState state) {
         // TODO 3
-        int hashCode = state.hashCode();
-        int index = Math.abs(hashCode % buckets.length);
+        int index = getBucketIndex(state);
         Node<GameState> head = buckets[index]; // 通过array指向链表的头节点
         while(head!=null){
             if (head.state.equals(state)) {
@@ -131,8 +130,7 @@ public class TranspositionTable<GameState> {
      */
     public void add(GameState state, int depth, int value) {
         // TODO 4
-        int hashCode = state.hashCode();
-        int index = Math.abs(hashCode % buckets.length);
+        int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
         // overwrite the existing entry
         while(head!=null){
@@ -166,12 +164,20 @@ public class TranspositionTable<GameState> {
             Node<GameState>[] newBuckets = new Node[2 * n];
             for(Node<GameState> head : buckets){
                 while(head != null){
-
+                    int hashCode = head.state.hashCode();
+                    int index = hashCode % newBuckets.length;
+                    // state -> key
+                    newBuckets[index] = head;
+                    // null -> new node, not null -> next
+                    if (head != null){ // Ask TA
+                        head = head.next;
+                    }else{
+                        head = new Node<GameState>(head.state, head.depth, head.value, null);
+                        head = head.next;
+                    }
                 }
-
-
             }
-
+            buckets = newBuckets;
             return true;
         }else{
             return false;
@@ -179,6 +185,11 @@ public class TranspositionTable<GameState> {
     }
 
     // You may want to write some additional helper methods.
+    private int getBucketIndex(GameState state){
+        int hashCode = state.hashCode();
+        int index = Math.abs(hashCode % buckets.length);
+        return index;
+    }
 
 
     /**
