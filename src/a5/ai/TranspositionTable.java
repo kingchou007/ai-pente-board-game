@@ -111,15 +111,16 @@ public class TranspositionTable<GameState> {
      */
     public Maybe<StateInfo> getInfo(GameState state) {
         // TODO 3
-        int index = state.hashCode() % buckets.length; // not sure
-        for(int i = 0; i < index; i++){
-            if (buckets[i] == null) {
-                return Maybe.none();
-            }else{
-                return Maybe.some(buckets[i]); // return whole node
+        int hashCode = state.hashCode();
+        int index = Math.abs(hashCode % buckets.length);
+        Node<GameState> head = buckets[index]; // 通过array指向链表的头节点
+        while(head!=null){
+            if (head.state.equals(state)) {
+                return Maybe.some(head);
             }
+            head = head.next;
         }
-        return Maybe.none(); // check
+        return Maybe.none();
     }
 
     /**
@@ -130,6 +131,27 @@ public class TranspositionTable<GameState> {
      */
     public void add(GameState state, int depth, int value) {
         // TODO 4
+        int hashCode = state.hashCode();
+        int index = Math.abs(hashCode % buckets.length);
+        Node<GameState> head = buckets[index];
+        // overwrite the existing entry
+        while(head!=null){
+            if (head.state.equals(state)){
+                head.value = value;
+                head.depth = depth;
+            }
+            head = head.next;
+        }
+
+        // not sure
+        if (head == null){
+            head = new Node<GameState>(state, depth, value, null);
+            size++;
+        }else{
+            Node<GameState> newNode = new Node<GameState>(state, depth, value, null);
+            head.next = newNode;
+            size++;
+        }
     }
 
     /**
@@ -138,7 +160,22 @@ public class TranspositionTable<GameState> {
      */
     private boolean grow(int target) {
         // TODO 5
-        return false;
+        int n = buckets.length;
+        if (target < n-1){
+            size = 0;
+            Node<GameState>[] newBuckets = new Node[2 * n];
+            for(Node<GameState> head : buckets){
+                while(head != null){
+
+                }
+
+
+            }
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // You may want to write some additional helper methods.
