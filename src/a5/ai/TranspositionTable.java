@@ -95,7 +95,7 @@ public class TranspositionTable<GameState> {
     /** Creates: a new, empty transposition table. */
     TranspositionTable() {
         size = 0;
-        Node<GameState>[] buckets = new Node[10];
+        buckets = new Node[10];
         // TODO 2
     }
 
@@ -111,8 +111,10 @@ public class TranspositionTable<GameState> {
      */
     public Maybe<StateInfo> getInfo(GameState state) {
         // TODO 3
+        if (buckets == null) return Maybe.none();
         int index = getBucketIndex(state);
-        Node<GameState> head = buckets[index]; // 通过array指向链表的头节点
+        Node<GameState> head = buckets[index];
+        if (head.state.equals(state)) return Maybe.some(head);
         while(head != null){
             if (head.state.equals(state)) {
                 return Maybe.some(head);

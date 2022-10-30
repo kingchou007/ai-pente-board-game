@@ -3,6 +3,7 @@ package a5.logic;
 import a5.util.PlayerRole;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A mutable representation of an m-by-n board in which each cell
@@ -100,6 +101,19 @@ public class Board {
     @Override
     public boolean equals(Object o) {
         // TODO 1
+        // Not sure. Ask TA/OH
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (o == this) return true;
+        Board board = (Board) o;
+        if (rowSize() != board.rowSize || colSize() != board.colSize)
+            return false;
+
+        int length =  boardState.length;
+        for (int i = 0; i < length; i++) {
+            if (board.boardState[i] != boardState[i]) return false;
+        }
         return true;
 
     }
@@ -110,10 +124,9 @@ public class Board {
         if (boardState == null)
             return 0;
 
-        // int result = rowSize^colSize; // not sure
-        int result = 1; // not sure
+        int result = Objects.hash(rowSize, colSize);
         for (byte element : boardState)
-            result = (31 * result + element) % boardState.length;
+            result = 31 * result + element;
         return result;
     }
 
