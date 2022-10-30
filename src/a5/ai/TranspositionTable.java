@@ -113,7 +113,7 @@ public class TranspositionTable<GameState> {
         // TODO 3
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index]; // 通过array指向链表的头节点
-        while(head!=null){
+        while(head != null){
             if (head.state.equals(state)) {
                 return Maybe.some(head);
             }

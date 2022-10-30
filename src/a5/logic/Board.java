@@ -91,6 +91,12 @@ public class Board {
     /**
      * Board equality is determined using state equality.
      */
+
+    // Board.java: A mutable representation of an m-by-n board, in which each
+    // cell can be occupied by a player stone or be empty. States are represented
+    // compactly as a one-dimensional byte array to improve efficiency. You are
+    // asked to implement equals() and hashCode() so it can be hashed and
+    // stored in a transposition table
     @Override
     public boolean equals(Object o) {
         // TODO 1
@@ -100,7 +106,14 @@ public class Board {
     @Override
     public int hashCode() {
         // TODO 2
-        return 0;
+        if (boardState == null)
+            return 0;
+
+        // int result = rowSize^colSize; // not sure
+        int result = 1; // not sure
+        for (byte element : boardState)
+            result = (31 * result + element) % boardState.length;
+        return result;
     }
 
     /**

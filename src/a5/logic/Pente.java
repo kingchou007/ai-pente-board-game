@@ -19,8 +19,10 @@ public class Pente extends MNKGame {
      */
     public Pente() {
         super(8, 8, 5);
-
         // TODO 1
+        captureWhite = 0;
+        captureBlack = 0;
+
     }
 
     /**
@@ -35,6 +37,20 @@ public class Pente extends MNKGame {
     @Override
     public boolean makeMove(Position p) {
         // TODO 3
+        if (!board().validPos(p))
+            return false;
+
+        board().place(p, currentPlayer());
+
+        // 8 directions
+        // -1,1  | 0,1  | 1,1
+        // -1,0  | 0,0  | 1,0
+        // -1,-1 | 0,-1 |-1,-1
+        int[][] directions = {{-1,1},{0,1},{1,1},{-1,0},{1,0},{-1,-1},{0,-1},{-1,-1}};
+
+        changePlayer();
+        advanceTurn();
+
         return true;
     }
 
