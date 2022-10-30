@@ -48,6 +48,9 @@ public class Pente extends MNKGame {
         // -1,-1 | 0,-1 |-1,-1
         int[][] steps = {{-1,1},{0,1},{1,1},{-1,0},{1,0},{-1,-1},{0,-1},{-1,-1}};
 
+
+
+
         changePlayer();
         advanceTurn();
 

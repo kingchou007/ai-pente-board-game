@@ -101,6 +101,7 @@ public class Board {
     public boolean equals(Object o) {
         // TODO 1
         return true;
+
     }
 
     @Override
