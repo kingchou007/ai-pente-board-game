@@ -4,6 +4,8 @@ import a5.util.PlayerRole;
 import a5.util.GameType;
 import a5.util.GameResult;
 
+import java.util.Arrays;
+
 
 /**
  * A Pente game, where players take turns to place stones on board.
@@ -58,7 +60,7 @@ public class Pente extends MNKGame {
                 Position p2 = new Position(p1.row()+direction[0], p1.col()+direction[1]);
                 Position p3 = new Position(p2.row()+direction[0], p2.col()+direction[1]);
 
-                // board.get() -> return {@code boardValue}.
+                // board.get() -> return {@code boardValue}. ask TA
                 if(board().onBoard(p1) && board().onBoard(p2) && board().onBoard(p3)){
                     if(board().get(p) != board().get(p1) && board().get(p1) == board().get(p2)
                             && board().get(p) == board().get(p3)) {
@@ -105,6 +107,8 @@ public class Pente extends MNKGame {
     @Override
     public boolean hasEnded() {
         // TODO 5
+
+        // not sure
         return capturedPairsNo(this.currentPlayer()) == capture || super.hasEnded();
     }
 
@@ -145,6 +149,10 @@ public class Pente extends MNKGame {
     @Override
     public int hashCode() {
         // TODO 7
-        // return super.hashCode();
+
+        // ask TA
+        return Arrays.hashCode(new int[]{
+                super.hashCode(),
+                capture});
     }
 }

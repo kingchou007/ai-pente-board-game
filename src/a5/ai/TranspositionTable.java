@@ -114,11 +114,10 @@ public class TranspositionTable<GameState> {
         if (buckets == null) return Maybe.none();
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
-        if (head.state.equals(state)) return Maybe.some(head);
+        // if (head.state.equals(state)) return Maybe.some(head);
         while(head != null){
-            if (head.state.equals(state)) {
+            if (head.state.equals(state))
                 return Maybe.some(head);
-            }
             head = head.next;
         }
         return Maybe.none();
@@ -134,8 +133,10 @@ public class TranspositionTable<GameState> {
         // TODO 4
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
+        // create a new node
+        Node<GameState> node = new Node<GameState>(state, depth, value, null);
         // overwrite the existing entry
-        while(head!=null){
+        while(head != null){
             if (head.state.equals(state)){
                 head.value = value;
                 head.depth = depth;
@@ -145,11 +146,11 @@ public class TranspositionTable<GameState> {
 
         // not sure
         if (head == null){
-            head = new Node<GameState>(state, depth, value, null);
+            buckets[index] = node;
             size++;
         }else{
-            Node<GameState> newNode = new Node<GameState>(state, depth, value, null);
-            head.next = newNode;
+            buckets[index] = node;
+            node = node.next;
             size++;
         }
     }
