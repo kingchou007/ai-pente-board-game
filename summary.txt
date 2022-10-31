@@ -1,18 +1,24 @@
 (Fill out this file with brief answers.)
 
-Name(s) and NetID(s) of group members:
+Name(s) and NetID(s) of group members: Kane Li (jl3485) and Una Wu (yw523)
 
-Time spent on the assignment, in hours:
+Time spent on the assignment, in hours: 20
 
 Implementation strategy:
     (describe how you went about implementing the assignment and how the work was divided between the partners.)
-
+    We sat together and went over all the instructions/specifications. We together tried to figure out
+    ways to implement all the methods by sketching all steps out. And we took turn writing out the actual
+    code while the other observing and gave suggestions.
 Testing strategy:
     (how did you perform testing and design test cases to achieve coverage?)
-
+    We first added test cases using black box testing strategy, by only looking at the spec we interpreted what
+    should we expect as the outcome of our later implementation. After implementing methods, we then write more
+    test cases according to the way we implement. We then run the test coverage to see if we have covered all lines
+    and went back to add more if needed.
 Known problems:
     (are there any things that do not work?)
 
-Time spent on the assignment, in hours:
+Time spent on the assignment, in hours: 20
 
-Comments on the assignment:
+Comments on the assignment: It's challenging at first to understand what we were supposed to achieve, but it's
+gradually getting better as moving on.
