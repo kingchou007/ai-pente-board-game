@@ -114,7 +114,6 @@ public class TranspositionTable<GameState> {
         if (buckets == null) return Maybe.none();
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
-        // if (head.state.equals(state)) return Maybe.some(head);
         while(head != null){
             if (head.state.equals(state))
                 return Maybe.some(head);
