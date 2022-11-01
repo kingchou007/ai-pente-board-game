@@ -43,6 +43,7 @@ class TranspositionTableTest {
 
         // TODO 2: write at least 3 more test cases
 
+
         //test case 3: add state2 to the table in depth 1
         table.add(state2, 1, 100);
         StateInfo info2 = table.getInfo(state2).get();
