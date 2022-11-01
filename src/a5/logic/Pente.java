@@ -36,8 +36,8 @@ public class Pente extends MNKGame {
     public Pente(Pente game) {
         super(game);
         // TODO 2
-        captureBlack = game.captureBlack;
         captureWhite = game.captureWhite;
+        captureBlack = game.captureBlack;
     }
 
     @Override
@@ -60,8 +60,9 @@ public class Pente extends MNKGame {
                 Position p2 = new Position(p1.row()+direction[0], p1.col()+direction[1]);
                 Position p3 = new Position(p2.row()+direction[0], p2.col()+direction[1]);
 
-                // board.get() -> return {@code boardValue}. ask TA
-                if(board().onBoard(p1) && board().onBoard(p2) && board().onBoard(p3)){
+                // if all on the board and position not empty
+                if(board().onBoard(p1) && board().onBoard(p2) && board().onBoard(p3)
+                && board().get(p1) != 0 && board().get(p2) != 0 && board().get(p3) != 0){
                     if(board().get(p) != board().get(p1) && board().get(p1) == board().get(p2)
                             && board().get(p) == board().get(p3)) {
                         board().erase(p1);
@@ -99,9 +100,10 @@ public class Pente extends MNKGame {
         // TODO 4
         if(playerRole.boardValue() == 1){
             return captureWhite;
-        }else{
+        }else if (playerRole.boardValue() == 2){
             return captureBlack;
         }
+        return 0;
     }
 
     @Override

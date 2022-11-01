@@ -12,14 +12,27 @@ class BoardTest {
         Board board1 = new Board(3, 3);
         Board board2 = new Board(3, 3);
 
-        // test 1
+        // test 1: two boards with same rowSize and colSize without placing stones should be equal
         assertEquals(board1, board2);
 
-        // test 2
+        // test 2: place stone on board2, now two boards are not equal.
         board2.place(new Position(0, 0), PlayerRole.FIRST_PLAYER);
         assertNotEquals(board1, board2);
 
         // TODO 1: write at least 3 test cases
+
+        // test 3: two board with different rowSize and colSize should not be equal
+        Board board3 = new Board(8,8);
+        assertNotEquals(board1, board3);
+
+        // test 4: same player placing at the same position on two boards with same dimension should be equal
+        board1.place(new Position(0, 0), PlayerRole.FIRST_PLAYER);
+        assertEquals(board1, board2);
+
+        // test 5: different player placing at the same position on two boards with same dimension should not be equal
+        Board board4 = new Board(3,3);
+        board4.place(new Position(0, 0), PlayerRole.SECOND_PLAYER);
+        assertNotEquals(board1, board4);
     }
 
     @Test
@@ -27,14 +40,18 @@ class BoardTest {
         Board board1 = new Board(3, 3);
         Board board2 = new Board(3, 3);
 
-        // test 1
+        // test 1: hashcode for two board with same rowSize and colSize should be equal.
         assertEquals(board1.hashCode(), board2.hashCode());
 
-        // test 2
+        // test 2: one board being placed a stone, hashcode for two boards should not be equal.
         board2.place(new Position(0, 0), PlayerRole.FIRST_PLAYER);
         assertNotEquals(board1.hashCode(), board2.hashCode());
 
         // TODO 2: write at least 3 test cases
+
+        // test 3
+        // test 4
+        // test 5
     }
 
     @Test

@@ -94,9 +94,9 @@ public class TranspositionTable<GameState> {
     @SuppressWarnings("unchecked")
     /** Creates: a new, empty transposition table. */
     TranspositionTable() {
+        // TODO 2
         size = 0;
         buckets = new Node[5];
-        // TODO 2
     }
 
     /** The number of entries in the transposition table. */
