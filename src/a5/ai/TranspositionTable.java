@@ -95,7 +95,7 @@ public class TranspositionTable<GameState> {
     /** Creates: a new, empty transposition table. */
     TranspositionTable() {
         size = 0;
-        buckets = new Node[10];
+        buckets = new Node[5];
         // TODO 2
     }
 
@@ -135,22 +135,22 @@ public class TranspositionTable<GameState> {
         // create a new node
         Node<GameState> node = new Node<GameState>(state, depth, value, null);
         // overwrite the existing entry
-        while(head != null){
-            if (head.state.equals(state)){
-                head.value = value;
-                head.depth = depth;
-            }
-            head = head.next;
-        }
-
-        // not sure
         if (head == null){
             buckets[index] = node;
             size++;
         }else{
-            buckets[index] = node;
-            node = node.next;
-            size++;
+            while (head != null){
+                if (head.state.equals(state)) {
+                    head.value = value;
+                    head.depth = depth;
+                } else {
+                    if (head.next == null){
+                        head.next = node;
+                        size++;
+                    }
+                }
+                head = head.next;
+            }
         }
     }
 
