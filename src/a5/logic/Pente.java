@@ -19,6 +19,9 @@ public class Pente extends MNKGame {
     private int captureWhite;
     private int captureBlack;
 
+    protected int captureWhite() {return captureWhite;}
+    protected int captureBlack() {return captureBlack;}
+
     /**
      * Create an 8-by-8 Pente game.
      */
