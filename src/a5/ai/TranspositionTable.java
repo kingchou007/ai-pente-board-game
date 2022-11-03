@@ -88,7 +88,19 @@ public class TranspositionTable<GameState> {
     // off assertions in this file, but only after you have the transposition
     // table fully tested and working.
     boolean classInv() {
-           return false;
+        if (size < 0) return false;
+        for (int i = 0; i < buckets.length; i++) {
+            int index = i;
+            Node<GameState> head = buckets[index];
+            while (head != null) {
+                if (index != getBucketIndex(head.state)) return false;
+                head = head.next;
+            }
+        }
+        int n = size;
+        int m = buckets.length;
+        // load factor <= 1
+        return (n / m) <= 1;
     }
 
     @SuppressWarnings("unchecked")
@@ -97,9 +109,12 @@ public class TranspositionTable<GameState> {
         // TODO 2
         size = 0;
         buckets = new Node[5];
+        assert classInv();
     }
 
-    /** The number of entries in the transposition table. */
+    /**
+     * The number of entries in the transposition table.
+     */
     public int size() {
         return size;
     }
@@ -111,10 +126,11 @@ public class TranspositionTable<GameState> {
      */
     public Maybe<StateInfo> getInfo(GameState state) {
         // TODO 3
+        assert classInv();
         if (buckets == null) return Maybe.none();
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
-        while(head != null){
+        while (head != null) {
             if (head.state.equals(state))
                 return Maybe.some(head);
             head = head.next;
@@ -130,21 +146,22 @@ public class TranspositionTable<GameState> {
      */
     public void add(GameState state, int depth, int value) {
         // TODO 4
+        assert classInv();
         int index = getBucketIndex(state);
         Node<GameState> head = buckets[index];
         // create a new node
         Node<GameState> node = new Node<GameState>(state, depth, value, null);
         // overwrite the existing entry
-        if (head == null){
+        if (head == null) {
             buckets[index] = node;
             size++;
-        }else{
-            while (head != null){
+        } else {
+            while (head != null) {
                 if (head.state.equals(state)) {
                     head.value = value;
                     head.depth = depth;
                 } else {
-                    if (head.next == null){
+                    if (head.next == null) {
                         head.next = node;
                         size++;
                     }
@@ -152,6 +169,7 @@ public class TranspositionTable<GameState> {
                 head = head.next;
             }
         }
+        assert classInv();
     }
 
     /**
@@ -161,17 +179,17 @@ public class TranspositionTable<GameState> {
     private boolean grow(int target) {
         // TODO 5
         int n = buckets.length;
-        if (target < n-1){
+        if (target < n - 1) {
             size = 0;
-            Node<GameState>[] newBuckets = new Node[2 * n];
-            for(Node<GameState> head : buckets){
-                while(head != null){
+            Node[] newBuckets = new Node[2 * n];
+            for (Node<GameState> head : buckets) {
+                while (head != null) {
                     int hashCode = head.state.hashCode();
                     int index = hashCode % newBuckets.length;
                     // state -> key
                     newBuckets[index] = head;
                     // null -> new node, not null -> next
-                    if (head == null){
+                    if (head == null) {
                         head = new Node<GameState>(head.state, head.depth, head.value, null);
                     }
                     head = head.next;
@@ -180,14 +198,14 @@ public class TranspositionTable<GameState> {
             }
             buckets = newBuckets;
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
     // You may want to write some additional helper methods.
-    private int getBucketIndex(GameState state){
+    private int getBucketIndex(GameState state) {
         int hashCode = state.hashCode();
         int index = Math.abs(hashCode % buckets.length);
         return index;
@@ -211,9 +229,9 @@ public class TranspositionTable<GameState> {
                 count++;
                 node = node.next;
             }
-            sum2 += count*count;
+            sum2 += count * count;
         }
-        double alpha = (double)n/m;
-        return sum2/(N * alpha * (1 - 1.0/m + alpha));
+        double alpha = (double) n / m;
+        return sum2 / (N * alpha * (1 - 1.0 / m + alpha));
     }
 }

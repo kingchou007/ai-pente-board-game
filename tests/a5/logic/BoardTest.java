@@ -39,7 +39,7 @@ class BoardTest {
     void testHashCode() {
         Board board1 = new Board(3, 3);
         Board board2 = new Board(3, 3);
-        Board board3 = new Board(5, 5);
+        Board board3 = new Board(3, 3);
 
         // test 1: hashcode for two board with same rowSize and colSize should be equal.
         assertEquals(board1.hashCode(), board2.hashCode());
@@ -51,7 +51,8 @@ class BoardTest {
         // TODO 2: write at least 3 test cases
 
         // test 3: hashcode for two board with different dimensions should not be equal.
-        assertNotEquals(board1.hashCode(), board3.hashCode());
+        board3.place(new Position(0, 0), PlayerRole.SECOND_PLAYER);
+        assertNotEquals(board2.hashCode(), board3.hashCode());
 
         // test 4: two same dimension boards placing the stone in the same place, hashcode for two boards should be equal.
         board1.place(new Position(0, 0), PlayerRole.FIRST_PLAYER);

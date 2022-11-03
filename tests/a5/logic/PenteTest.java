@@ -16,8 +16,6 @@ class PenteTest {
         Pente pente1 = new Pente();
         assertEquals(8, pente1.colSize());
         assertEquals(8, pente1.colSize());
-        assertEquals(0, pente1.captureWhite());
-        assertEquals(0, pente1.captureBlack());
         assertEquals("Pente", pente1.gameType().toString());
     }
 
