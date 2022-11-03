@@ -5,6 +5,7 @@ import a5.util.GameType;
 import a5.util.GameResult;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -19,8 +20,13 @@ public class Pente extends MNKGame {
     private int captureWhite;
     private int captureBlack;
 
-    protected int captureWhite() {return captureWhite;}
-    protected int captureBlack() {return captureBlack;}
+    protected int captureWhite() {
+        return captureWhite;
+    }
+
+    protected int captureBlack() {
+        return captureBlack;
+    }
 
     /**
      * Create an 8-by-8 Pente game.
@@ -56,24 +62,24 @@ public class Pente extends MNKGame {
         // -1,1  | 0,1  | 1,1
         // -1,0  | 0,0  | 1,0
         // -1,-1 | 0,-1 | 1,-1
-        int[][] directions = {{-1,1},{0,1},{1,1},{-1,0},{1,0},{-1,-1},{0,-1},{1,-1}};
-        if(board().get(p) != 0){
-            for (int[] direction : directions){ // step : steps
-                Position p1 = new Position(p.row()+direction[0], p.col()+direction[1]);
-                Position p2 = new Position(p1.row()+direction[0], p1.col()+direction[1]);
-                Position p3 = new Position(p2.row()+direction[0], p2.col()+direction[1]);
+        int[][] directions = {{-1, 1}, {0, 1}, {1, 1}, {-1, 0}, {1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+        if (board().get(p) != 0) {
+            for (int[] direction : directions) { // step : steps
+                Position p1 = new Position(p.row() + direction[0], p.col() + direction[1]);
+                Position p2 = new Position(p1.row() + direction[0], p1.col() + direction[1]);
+                Position p3 = new Position(p2.row() + direction[0], p2.col() + direction[1]);
 
                 // if all on the board and position not empty
-                if(board().onBoard(p1) && board().onBoard(p2) && board().onBoard(p3)
-                && board().get(p1) != 0 && board().get(p2) != 0 && board().get(p3) != 0){
-                    if(board().get(p) != board().get(p1) && board().get(p1) == board().get(p2)
+                if (board().onBoard(p1) && board().onBoard(p2) && board().onBoard(p3)
+                        && board().get(p1) != 0 && board().get(p2) != 0 && board().get(p3) != 0) {
+                    if (board().get(p) != board().get(p1) && board().get(p1) == board().get(p2)
                             && board().get(p) == board().get(p3)) {
                         board().erase(p1);
                         board().erase(p2);
                         int status = 1;
-                        if(currentPlayer().boardValue() == status){
+                        if (currentPlayer().boardValue() == status) {
                             captureWhite++;
-                        }else{
+                        } else {
                             captureBlack++;
                         }
                     }
@@ -101,9 +107,9 @@ public class Pente extends MNKGame {
      */
     public int capturedPairsNo(PlayerRole playerRole) {
         // TODO 4
-        if(playerRole.boardValue() == 1){
+        if (playerRole.boardValue() == 1) {
             return captureWhite;
-        }else if (playerRole.boardValue() == 2){
+        } else if (playerRole.boardValue() == 2) {
             return captureBlack;
         }
         return 0;
@@ -112,9 +118,9 @@ public class Pente extends MNKGame {
     @Override
     public boolean hasEnded() {
         // TODO 5
-
-        // not sure
-        return capturedPairsNo(this.currentPlayer()) == capture || super.hasEnded();
+        return capturedPairsNo(PlayerRole.FIRST_PLAYER) == capture ||
+                capturedPairsNo(PlayerRole.SECOND_PLAYER) == capture ||
+                super.hasEnded();
     }
 
     @Override
@@ -154,10 +160,6 @@ public class Pente extends MNKGame {
     @Override
     public int hashCode() {
         // TODO 7
-
-        // ask TA
-        return Arrays.hashCode(new int[]{
-                super.hashCode(),
-                capture});
+        return Arrays.hashCode(new int[]{super.hashCode(), Objects.hash(captureBlack, captureWhite)});
     }
 }

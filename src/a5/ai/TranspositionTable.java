@@ -171,12 +171,11 @@ public class TranspositionTable<GameState> {
                     // state -> key
                     newBuckets[index] = head;
                     // null -> new node, not null -> next
-                    if (head != null){ // Ask TA
-                        head = head.next;
-                    }else{
+                    if (head == null){
                         head = new Node<GameState>(head.state, head.depth, head.value, null);
-                        head = head.next;
                     }
+                    head = head.next;
+
                 }
             }
             buckets = newBuckets;
